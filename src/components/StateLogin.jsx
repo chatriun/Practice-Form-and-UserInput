@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 export default function StateLogin() {
-  // const [didEdit, setDidEdit] = useState({
-  //   email: false,
-  //   password: false,
-  // });
+  const [didEdit, setDidEdit] = useState({
+    email: false,
+    password: false,
+  });
 
   const [enteredValue, setEnteredValue] = useState({
     email: "",
@@ -18,6 +18,8 @@ export default function StateLogin() {
     }));
   };
 
+  const emailIsInvalid = didEdit.email && !enteredValue.email.includes("@");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(enteredValue);
@@ -28,18 +30,15 @@ export default function StateLogin() {
       ...prevEntered,
       [key]: value,
     }));
-    // setDidEdit((prevEdit) => ({
-    //   ...prevEdit,
-    //   [key]: false,
-    // }));
+    setDidEdit((prevEdit) => ({
+      ...prevEdit,
+      [key]: false,
+    }));
   };
-
-  const emailIsInValid =
-    enteredValue.email && !enteredValue.email.includes("@");
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>State Login</h2>
+      <h2>StateLogin</h2>
 
       <div className="control-row">
         <div className="control no-margin">
@@ -53,7 +52,7 @@ export default function StateLogin() {
             value={enteredValue.email}
           />
           <div className="control-error">
-            {emailIsInValid && <p>please enter a valid email address</p>}
+            {emailIsInvalid && <p>please enter a valid email address</p>}
           </div>
         </div>
 
