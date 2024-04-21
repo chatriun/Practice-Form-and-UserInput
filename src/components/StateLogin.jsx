@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input";
 
 export default function StateLogin() {
   const [didEdit, setDidEdit] = useState({
@@ -19,6 +20,8 @@ export default function StateLogin() {
   };
 
   const emailIsInvalid = didEdit.email && !enteredValue.email.includes("@");
+  const passwordsAreInvalid =
+    didEdit.password && enteredValue.password.trim().length < 6;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,31 +44,26 @@ export default function StateLogin() {
       <h2>StateLogin</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onBlur={() => handleBlurInput("email")}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            value={enteredValue.email}
-          />
-          <div className="control-error">
-            {emailIsInvalid && <p>please enter a valid email address</p>}
-          </div>
-        </div>
-
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            onChange={(e) => handleInputChange("password", e.target.value)}
-            value={enteredValue.password}
-          />
-        </div>
+        <Input
+          label="Email"
+          id="email"
+          type="email"
+          name="email"
+          onBlur={() => handleBlurInput("email")}
+          onChange={(e) => handleInputChange("email", e.target.value)}
+          value={enteredValue.email}
+          error={emailIsInvalid && <p>please enter a valid email</p>}
+        />
+        <Input
+          label="Password"
+          id="password"
+          type="password"
+          name="password"
+          onBlur={() => handleBlurInput("password")}
+          onChange={(e) => handleInputChange("password", e.target.value)}
+          value={enteredValue.password}
+          error={passwordsAreInvalid && <p>please enter a valid passwords</p>}
+        />
       </div>
 
       <p className="form-actions">
