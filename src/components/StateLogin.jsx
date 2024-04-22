@@ -40,6 +40,7 @@ export default function StateLogin() {
           onChange={handleEmailChange}
           value={emailValue}
           error={emailHasError && <p>please enter a valid email</p>}
+          required
         />
         <Input
           label="Password"
@@ -50,6 +51,7 @@ export default function StateLogin() {
           onChange={handlePasswordChange}
           value={passwordValue}
           error={passwordHasError && <p>please enter a valid passwords</p>}
+          required
         />
       </div>
 
